@@ -55,7 +55,7 @@ function addToCart(name, price){
         })
     }
 
-    
+    mostrarToast(`${name} adicionado ao carrinho!`);
     updateCartModal(); // Depois atualiza o carrinho
     /* showToast('Intem adicionado!','top-right');
  */
@@ -186,6 +186,7 @@ function removeItemCart(name) {
         // Remover o item do carrinho
         cart.splice(index, 1);
         updateCartModal();  // Atualiza a modal após a remoção
+        mostrarToastDanger(`${name} removido do carrinho.`);
 
        /*  showToast('Item removido do carrinho!', 'top-right');
  */
