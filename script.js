@@ -13,21 +13,25 @@ const addressWarn = document.getElementById("address-warn")
 let cart = [];
 
 /* Abrir modal do carrinho */
-cartBtn.addEventListener("click", function(){
-    cartModal.style.display = "flex"
+cartBtn.addEventListener("click", function() {
+    cartModal.style.display = "flex";  // Abre o modal
+    cartBtn.classList.add("hidden");  // Esconde o botão do carrinho
     updateCartModal();
-})
+});
 
 // Fechar modal do carrinho //
-cartModal.addEventListener("click", function(event){
-    if(event.target === cartModal){
-        cartModal.style.display = "none"
+cartModal.addEventListener("click", function(event) {
+    if (event.target === cartModal) {
+        cartModal.style.display = "none";  // Fecha o modal
+        cartBtn.classList.remove("hidden");  // Mostra o botão do carrinho novamente
     }
-})
+});
 
-closeModalBtn.addEventListener("click", function(){
-    cartModal.style.display = "none"
-})
+closeModalBtn.addEventListener("click", function() {
+    cartModal.style.display = "none";  // Fecha o modal ao clicar no botão de fechar
+    cartBtn.classList.remove("hidden");  // Mostra o botão do carrinho novamente
+});
+
 
 
 menu.addEventListener("click", function(event){
@@ -55,11 +59,8 @@ function addToCart(name, price){
         })
     }
 
-    mostrarToast(`${name} adicionado ao carrinho!`);
-    updateCartModal(); // Depois atualiza o carrinho
-    /* showToast('Intem adicionado!','top-right');
- */
-    
+    mostrarToast(`Adicionado ao Carrinho!`);
+    updateCartModal(); // Depois atualiza o carrinho 
 }
 
 // Atualizar carrinho //
@@ -185,11 +186,9 @@ function removeItemCart(name) {
     if (index !== -1) {
         // Remover o item do carrinho
         cart.splice(index, 1);
+        mostrarToastErro('Item removido do carrinho!')
         updateCartModal();  // Atualiza a modal após a remoção
-        mostrarToastDanger(`${name} removido do carrinho.`);
-
-       /*  showToast('Item removido do carrinho!', 'top-right');
- */
+      
 
     }
 }
@@ -265,4 +264,3 @@ if(isOpen){
     spanItem.classList.remove("bg-green-500")
     spanItem.classList.add("bg-red-500")
 }
-
