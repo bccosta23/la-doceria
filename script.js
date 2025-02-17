@@ -63,92 +63,55 @@ function addToCart(name, price){
     updateCartModal(); // Depois atualiza o carrinho 
 }
 
-// Atualizar carrinho //
-function updateCartModal(){
+// Atualizar carrinho
+function updateCartModal() {
     cartItemsContainer.innerHTML = "";
     let total = 0;
 
     cart.forEach(item => {
-       const cartItemElement  = document.createElement("div");
+        const cartItemElement = document.createElement("div");
 
-       cartItemElement.innerHTML = `
-            <div 
-              class="flex items-center justify-between bg-white shadow-lg rounded-lg overflow-hidden border border-gray-300 divide-y mb-2 mt-2 mr-1"
-            >
+        cartItemElement.innerHTML = `
+            <div class="flex items-center justify-between bg-white shadow-lg rounded-lg overflow-hidden border border-gray-300 divide-y mb-2 mt-2 mr-1 p-2">
                 <div class="flex flex-col">
-                  <p class="font-bold">${item.name}</p>
+                    <p class="font-bold">${item.name}</p>
                     <div class="flex items-center gap-1">
-                        <p> Qtd: ${item.quantity}</p>
-                        <div class="flex flex-col gap-0.5">
-                           <!-- Botão para aumentar quantidade (seta para cima) -->
-                            <button class="increase-quantity-btn" data-name="${item.name}">
-                                <svg class="w-6 h-6 text-gray-800 dark:text-white" 
-                                    aria-hidden="true" 
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    width="24" height="24" fill="none" 
-                                    viewBox="0 0 24 24">
-                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                    d="m16 14-4-4-4 4"/>
-                                </svg>
-                            </button>
-                           <!-- Botão para diminuir quantidade (seta para baixo) -->
-                            <button class="decrease-quantity-btn" data-name="${item.name}">
-                                <svg class="w-6 h-6 text-gray-800 dark:text-white" 
-                                    aria-hidden="true" 
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    width="24" height="24" fill="none" 
-                                    viewBox="0 0 24 24">
-                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                    d="m8 10 4 4 4-4"/>
-                                </svg>
-                            </button>
+                        <label for="counter-${item.name}" class="text-sm font-medium text-gray-900 dark:text-white">Qtd:</label>
+                        <div class="max-w-xs gap-2">
+                            <div class="relative flex items-center">
+                                <button type="button" data-name="${item.name}" class="decrement-button shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                                    <svg class="w-2.5 h-2.5 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                                    </svg>
+                                </button>
+                                <input type="text" id="counter-${item.name}" class="counter-input shrink-0 text-gray-900 dark:text-white border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center" value="${item.quantity}" readonly />
+                                <button type="button" data-name="${item.name}" class="increment-button shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                                    <svg class="w-2.5 h-2.5 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                  <p class="font-medium mt-2 ">SubTotal&nbsp;R$: ${item.price.toFixed(2)}</p>
+                    <p class="font-medium mt-2">SubTotal&nbsp;R$: ${(item.price * item.quantity).toFixed(2)}</p>
                 </div>
-
                 <button class="remove-from-cart-btn" data-name="${item.name}">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" 
-                        aria-hidden="true" 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        width="24" height="24" fill="none" 
-                        viewBox="0 0 24 24">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                        d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
                     </svg>
                 </button>
             </div>
         `;
 
         total += item.price * item.quantity;
-        cartItemsContainer.appendChild(cartItemElement)
-    })
-
-    cartTotal.textContent = total.toLocaleString("pt-BR",{
-        style: "currency",
-        currency: "BRL"
+        cartItemsContainer.appendChild(cartItemElement);
     });
 
+    // Atualizar total e quantidade no carrinho
+    cartTotal.textContent = total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     cartCounter.innerHTML = cart.length;
 }
-
-cartItemsContainer.addEventListener("click", function(event){
-     
-    if(event.target.closest(".remove-from-cart-btn")){
-        const name = event.target.closest(".remove-from-cart-btn").getAttribute("data-name");
-        removeItemCart(name); // Remove o item do carrinho
-    }
-
-    if(event.target.closest(".increase-quantity-btn")){
-        const name = event.target.closest(".increase-quantity-btn").getAttribute("data-name");
-        increaseItemQuantity(name);
-    }
-
-    if(event.target.closest(".decrease-quantity-btn")){
-        const name = event.target.closest(".decrease-quantity-btn").getAttribute("data-name");
-        decreaseItemQuantity(name);
-    }
-});
+    
 
 // Função para aumentar a quantidade
 function increaseItemQuantity(name){
@@ -172,13 +135,24 @@ function decreaseItemQuantity(name){
     }
 }
 
-// Função para remover o item do carrinho //
+// Event listener para o botão de remover item do carrinho
 cartItemsContainer.addEventListener("click", function (event){
-    if(event.target.classList.contains("remove-from-cart-btn")){
-        const name = event.target.getAttribute("data-name")
+    if(event.target.closest(".remove-from-cart-btn")){
+        const name = event.target.closest(".remove-from-cart-btn").getAttribute("data-name");
         removeItemCart(name);
     }
-})
+
+    // Eventos de incremento e decremento de quantidade
+    if (event.target.closest(".increment-button")) {
+        const name = event.target.closest(".increment-button").getAttribute("data-name");
+        increaseItemQuantity(name);
+    }
+
+    if (event.target.closest(".decrement-button")) {
+        const name = event.target.closest(".decrement-button").getAttribute("data-name");
+        decreaseItemQuantity(name);
+    }
+});
 
 function removeItemCart(name) {
     // Encontrar o índice do item no carrinho
